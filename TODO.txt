@@ -1,0 +1,9 @@
+* Write CoSAMP, StOMP, and LS-OMP with various termination criteria
+* Improve MP, OMP, CoSAMP, StOMP, and LS-OMP with recursive least squares
+* Write BP reconstruction via linprog
+* Write IHT reconstruction
+* Write LASSO reconstruction
+* Write LARS reconstruction
+* Write AADM reconstruction
+* Write belief propagation or MAP reconstruction
+* Graph error and support match results from all algorithms on same random signal with increasing sparsity

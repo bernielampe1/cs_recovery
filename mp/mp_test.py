@@ -33,9 +33,6 @@ def plt_error(x_f, x_hat):
     plt.figure(0)
     plt.stem(x_hat,  markerfmt='o')
     plt.stem(x_f,  markerfmt='-')
-
-    plt.figure(1)
-    plt.stem(x_hat - x_f)
     plt.show()
 
 def mp_test():

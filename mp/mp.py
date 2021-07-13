@@ -2,7 +2,7 @@
 Match Pursuit Sparse Signal Recovery
 
 References:
-    Hammeed, Maxin Abdulrasool, "Comparative Analysis of Orthogonam Matching Pursuit
+    Hammeed, Maxin Abdulrasool, "Comparative Analysis of Orthogonal Matching Pursuit
     and least angle regression," Michigan State University, A Thesis for Masters of
     Science, 2012.
 """

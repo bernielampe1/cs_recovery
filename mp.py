@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-"""
-Match Pursuit Sparse Signal Recovery
+""" Match Pursuit Sparse Signal Recovery
 
 References:
     Hammeed, Maxin Abdulrasool, "Comparative Analysis of Orthogonal Matching Pursuit
@@ -37,7 +36,30 @@ def mp(y, A, term, param):
 
     return x_hat
 
+# terminate with output signal has sparsity k
+def sparsity_term(k, y, r, x_hat):
+    return int(np.linalg.norm(x_hat, 0, axis=0)) == k
+
+# terminate when output signal has p percentage of signal
+def percent_term(p, y, r, x_hat):
+    y_l2p = np.linalg.norm(y) * (1.0-p)
+    return y_l2p > np.linalg.norm(r)
+
+# terminate when energy (L2 norm) of remaining residual falls below this energy
+def epsilon_term(e, y, r, x_hat):
+    return e > np.linalg.norm(r)
+
 if __name__ == "__main__":
-    import harness
-    harness.test(mp)
-    harness.test(mp, True)
+    from common import *
+
+    for db in [None, 20]:
+        (y, A, x_t, x_f) = gen_test_signal(snr_db=db)
+
+        x_h = mp(y, A, sparsity_term, 20)
+        plt_error(x_h, x_f, 'sparsity_term, k = 20')
+
+        x_h = mp(y, A, percent_term, 0.99)
+        plt_error(x_h, x_f, 'percent_term, p = 0.99')
+
+        x_h = mp(y, A, epsilon_term, 0.00001)
+        plt_error(x_h, x_f, 'epsilon_term, k = 0.00001')

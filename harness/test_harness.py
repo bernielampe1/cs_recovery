@@ -1,0 +1,93 @@
+#!/usr/bin/python
+
+import matplotlib.pyplot as plt
+import scipy.fftpack as fft
+import numpy as np
+
+# terminate with output signal has sparsity k
+def sparsity_term(k, y, r, x_hat): 
+    return int(np.linalg.norm(x_hat, 0, axis=0)) == k
+
+# terminate when output signal has p percentage of signal
+def percent_term(p, y, r, x_hat):
+    y_l2p = np.linalg.norm(y) * (1.0-p)
+    return y_l2p > np.linalg.norm(r)
+
+# terminate when energy (L2 norm) of remaining residual falls below this energy
+def epsilon_term(e, y, r, x_hat): 
+    return e > np.linalg.norm(r)
+
+# test function
+def test(recover, noise=False):
+    (y, A, k, x_t, x_f) = gen_rand_gauss_signal(20, 10000, -100, 100, 30 if noise else None)
+    D = fft.dct(np.eye(A.shape[1]), norm='ortho', axis=0)  # optimize over the dct domain
+    Ap = np.dot(A, D.T)
+
+    for term in [(sparsity_term, 20), (percent_term, 0.99), (epsilon_term, 0.00001)]:
+        x_hat = recover(y, Ap, term[0], term[1])   # call with termination function and parameter
+        plt_error(x_f, x_hat, f"{term[0].__name__}, param = {term[1]}")
+
+def gen_rand_gauss_signal(k, n, amps_l, amps_h, snr_db):
+    # number of samples needed
+    c = 2
+    m = int(np.ceil(c * k * np.log(n/k)))
+    A = ((1.0/m)**0.5) * np.random.randn(m, n)
+
+    # generate signal
+    signal_f = np.zeros((n, 1))
+    pos = np.random.randint(1, n, (k, 1))
+    for i in range(0, len(pos)):
+        signal_f[pos[i]] = np.random.randint(amps_l, amps_h)
+    signal_t = fft.idct(signal_f, norm='ortho', axis=0)
+
+    # add noise
+    if snr_db:
+        signal_t = add_awgn(signal_t, snr_db)
+        signal_f = fft.dct(signal_t, norm='ortho', axis=0)
+
+    plt_signal(signal_t, 'Time domain signal_t')
+    plt_signal(signal_f, 'Frequency domain signal_f')
+
+    # sample the signal
+    y = np.dot(A, signal_t)
+
+    print(f"A.shape = {A.shape}")
+    print(f"m = {m}")
+    print(f"k = {k}")
+
+    return (y, A, k, signal_t, signal_f)
+
+def plt_error(x_f, x_hat, title):
+    # compute the error
+    sse = np.sum((x_hat - x_f)**2)
+
+    # plot it
+    plt.figure(0)
+    plt.stem(x_hat,  markerfmt='o')
+    plt.stem(x_f,  markerfmt='-')
+    plt.title(title + f', sse = {sse}')
+    plt.show()
+
+def plt_signal(signal, title):
+    plt.plot(signal)
+    plt.title(title)
+    plt.grid()
+    plt.show()
+
+def add_awgn(x_volts, target_snr_db):
+    # calculate signal power and convert to dB
+    sig_avg_watts = np.mean(x_volts ** 2)
+    sig_avg_db = 10 * np.log10(sig_avg_watts)
+
+    # calculate noise according to SNR_dB = P_signal,dB - P_noise,dB then convert to watts
+    noise_avg_db = sig_avg_db - target_snr_db
+    noise_avg_watts = 10 ** (noise_avg_db / 10)
+
+    # generate an sample of white noise
+    mean_noise = 0
+    noise_volts = np.random.normal(mean_noise, np.sqrt(noise_avg_watts), x_volts.shape)
+
+    # noise up the original signal
+    y_volts = x_volts + noise_volts
+
+    return y_volts

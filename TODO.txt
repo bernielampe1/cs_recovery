@@ -12,4 +12,4 @@
 
 * Makefile to call all tests
 * Graph error and support match results from all algorithms on same random signal with increasing sparsity
-* Write readme for eacha and then consolidate into IEEE formatted paper on each algo?
+* Write readme for each and then consolidate into IEEE formatted paper on each algo?

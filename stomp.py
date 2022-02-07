@@ -22,18 +22,17 @@ def stomp(y, A, sigma, N):
     Parameters:
         y: `compressed samples`
         A: `sampling matrix`
-        sigma: `std deviation threshold (2-3)`
-        term: `termination criteria function`
-        param: `termination criteria parameter`
+        sigma: `number of std deviations (2-3)`
+        N: `number of iterations`
 
     Returns:
         x_hat: `reconstructed signal`
     """
 
-    r = y       # init residual
-    lamda = set()  # list of support loc inds
-    x = np.array([]) # null output init
-    n = A.shape[1] # size of solution
+    r = np.copy(y)       # init residual
+    lamda = set()        # set of support indicies
+    x = np.array([])     # null output init
+    n = A.shape[1]       # size of solution
 
     for t in range(N):
         c = np.dot(A.T, r)                  # correlation
@@ -41,7 +40,7 @@ def stomp(y, A, sigma, N):
         inds = np.nonzero(np.abs(c) > thr)  # find abs support above threshold
         lamda.update(inds[0].tolist())      # update support
 
-        P = A[:, list(lamda)]               # compose the submatrix
+        P = A[:, list(lamda)]                     # compose the submatrix
         x = np.linalg.lstsq(P, y, rcond=None)[0]  # min ||y-P*x||_2
         r = y - np.dot(P, x)                      # update residual
 

@@ -14,19 +14,6 @@ References:
 import numpy as np
 import scipy.linalg as lin
 
-# terminate with output signal has sparsity k
-def sparsity_term(k, y, r, x): 
-    return int(np.linalg.norm(x, 0, axis=0)) == k
-
-# terminate when output signal has p percentage of signal
-def percent_term(p, y, r, x):
-    y_l2p = np.linalg.norm(y) * (1.0-p)
-    return y_l2p > np.linalg.norm(r)
-
-# terminate when energy (L2 norm) of residual ie below residual
-def epsilon_term(e, y, r, x): 
-    return e > np.linalg.norm(r)
-
 def omp(y, A, term, param):
     """
     orthogonal match pursuit with configurable termination criteria
@@ -63,3 +50,8 @@ def omp(y, A, term, param):
     x_hat[lamda] = x
 
     return x_hat
+
+if __name__ == "__main__":
+    import harness
+    harness.test(omp)
+    harness.test(omp, True)

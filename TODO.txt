@@ -6,7 +6,6 @@
 * Write LASSO reconstruction, relaxation
 * Write AADM reconstruction, relaxation
 * Write Bregman iterative, relaxation
-* Write FOCUSS algorithn, non-convex
 * Heavy Hitters on Steroids (HHS), combinatorial
 * Write belief propagation or MAP reconstruction, bayesian
 

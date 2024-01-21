@@ -1,14 +1,14 @@
-* Write *MP, *OMP, CoSAMP, *StOMP, Subspace Pursuit, Gradient pursuit, and LS-OMP, greedy
-* Improve above algorithms with recursive least squares, greedy
-* Write IHT reconstruction, greedy
-* Write LARS reconstruction, greedy
-* Write BP reconstruction via linprog, relaxation
-* Write LASSO reconstruction, relaxation
-* Write AADM reconstruction, relaxation
-* Write Bregman iterative, relaxation
-* Heavy Hitters on Steroids (HHS), combinatorial
-* Write belief propagation or MAP reconstruction, bayesian
+* Write *MP, *OMP, CoSAMP, *StOMP, Subspace Pursuit, Gradient pursuit, and LS-OMP, weak mp
+* Improve above algorithms with recursive least squares
+* Write IRLS  - iterative reweighted least-squares
+* Write IHT reconstruction
+* Write LARS reconstruction
+* Write BP reconstruction via linprog
+* Write LASSO reconstruction
+* Write AADM reconstruction
+* Write Bregman iterative
+* Heavy Hitters on Steroids (HHS)
+* Write belief propagation or MAP reconstruction
 
-* Makefile to call all tests
+* Test script to invoke all tests
 * Graph error and support match results from all algorithms on same random signal with increasing sparsity
-* Write readme for each and then consolidate into IEEE formatted paper on each algo?

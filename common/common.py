@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import scipy.fftpack as fft
 import numpy as np
 
-def gen_test_signal(k=20, n=10000, amps_l=-100, amps_h=100, snr_db=None):
+def gen_test_signal(k=20, n=1000, amps_l=-100, amps_h=100, snr_db=None):
     (y, A, k, x_t, x_f) = gen_rand_gauss_signal(k, n, amps_l, amps_h, snr_db)
     return (y, A, x_t, x_f)
 
@@ -55,14 +55,14 @@ def gen_rand_gauss_signal(k, n, amps_l, amps_h, snr_db):
 
     return (y, Ap, k, signal_t, signal_f)
 
-def plt_error(x_f, x_hat, title):
+def plt_error(x_hat, x_f, title):
     # compute the error
     sse = np.sum((x_hat - x_f)**2)
 
     # plot it
     plt.figure(0)
-    plt.stem(x_hat,  markerfmt='o')
-    plt.stem(x_f,  markerfmt='-')
+    plt.stem(x_hat,  markerfmt='ro')
+    plt.stem(x_f,  markerfmt='b-')
     plt.title(title + f', sse = {sse}')
     plt.show()
 

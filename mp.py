@@ -13,7 +13,7 @@ import scipy.linalg as lin
 
 def mp(y, A, term, param):
     """
-    omp_sparsity: orthogonal match pursuit with configurable termination criteria
+    np: match pursuit with configurable termination criteria
 
     Parameters:
         y: `compressed samples`

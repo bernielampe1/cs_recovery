@@ -1,6 +1,5 @@
 * Write *MP, *OMP, CoSAMP, *StOMP, Subspace Pursuit, Gradient pursuit, and LS-OMP, weak mp
 * Improve above algorithms with recursive least squares
-* Write IRLS  - iterative reweighted least-squares
 * Write IHT reconstruction
 * Write LARS reconstruction
 * Write BP reconstruction via linprog
@@ -11,4 +10,5 @@
 * Write belief propagation or MAP reconstruction
 
 * Test script to invoke all tests
+* Create flow charts for each algorithm explaining how they work
 * Graph error and support match results from all algorithms on same random signal with increasing sparsity

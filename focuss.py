@@ -19,7 +19,7 @@ def focuss(y, A, itrs):
         x_hat: `reconstructed signal`
     """
 
-    x_k = np.ones((A.shape[1], 1))
+    x_k = np.ones((A.shape[1], 1))  # init solution non-zero
 
     i = 0
     while i < itrs:
@@ -33,11 +33,13 @@ def focuss(y, A, itrs):
 
     return x_k
 
+
 if __name__ == "__main__":
     from common import *
 
     for db in [None, 20]:
         (y, A, x_t, x_f) = gen_test_signal(snr_db=db)
 
-        x_h = focuss(y, A, 25)
+        x_h = focuss(y, A, 500)
         plt_error(x_h, x_f, 'sparsity_term, k = 20')
+

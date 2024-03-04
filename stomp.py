@@ -49,3 +49,13 @@ def stomp(y, A, sigma, N):
     x_hat[list(lamda)] = x
 
     return x_hat
+
+if __name__ == "__main__":
+    from common import *
+
+    for db in [None, 20]:
+        (y, A, x_t, x_f) = gen_test_signal(snr_db=db)
+
+        x_h = stomp(y, A, 3, 20)
+        plt_error(x_h, x_f, 'sparsity_term, k = 20')
+

@@ -25,7 +25,7 @@ def focuss(y, A, itrs):
     while i < itrs:
         W_pk = np.diagflat(x_k)             # Step 1: W_pk = diag(x_k-1)
         alpha = np.dot(A, W_pk)             # Step 2: q_k = (A*W_pk)^+y
-        alpha_plus = np.linalg.pinv(alpha) 
+        alpha_plus = np.linalg.pinv(alpha)
         q_k = np.dot(alpha_plus, y)
         x_k = np.dot(W_pk, q_k)             # Step 3: x_k = W_pk * q_k
 

@@ -1,5 +1,4 @@
-* Write *MP, *OMP, CoSAMP, *StOMP, Subspace Pursuit, Gradient pursuit, and LS-OMP, weak mp
-* Improve above algorithms with recursive least squares
+* Write Subspace Pursuit, Gradient pursuit,  weak mp
 * Write IHT reconstruction
 * Write LARS reconstruction
 * Write BP reconstruction via linprog

@@ -6,14 +6,12 @@ def omp_rls(A, y, term, param, lam=1.0, delta=1e-3):
 
     Parameters
     ----------
-    A : ndarray (m, n)
-        Measurement matrix.
-    y : ndarray (m,)
-        Measurement vector.
-    lam : float
-        RLS forgetting factor (default = 1.0, no forgetting).
-    delta : float
-        Small regularization for RLS initialization.
+    A : ndarray (m, n), Measurement matrix.
+    y : ndarray (m,), Measurement vector.
+    term: `termination function from above`
+    param: { k: `sparsity` | p: `percent` | e: `epsilon` }
+    lam : float, RLS forgetting factor (default = 1.0, no forgetting).
+    delta : float, Small regularization for RLS initialization.
 
     Returns
     -------

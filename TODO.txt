@@ -1,4 +1,4 @@
-* Write Subspace Pursuit, Gradient pursuit,  weak mp
+* Write Gradient pursuit,  weak mp
 * Write IHT reconstruction
 * Write LARS reconstruction
 * Write BP reconstruction via linprog
